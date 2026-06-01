@@ -12,12 +12,7 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        openPath("/user/notifications/0");
-
-        assertVisible("//*[normalize-space(.)='Уведомления']", "Должен открыться раздел уведомлений");
-        assertVisible("//button[contains(normalize-space(.), 'Обновления')]", "В уведомлениях должна быть вкладка обновлений");
-        assertVisible("//button[contains(normalize-space(.), 'Социальное')]", "В уведомлениях должна быть социальная вкладка");
-        assertVisible("//button[contains(normalize-space(.), 'Важное')]", "В уведомлениях должна быть вкладка важного");
+        accountPage().openNotifications().shouldShowNotifications();
     }
 
     @Test
@@ -25,15 +20,7 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        openPath("/user/settings/root");
-
-        assertVisible("//*[contains(normalize-space(.), 'Vaneshik')]", "Настройки должны отображать текущий профиль");
-        assertVisible("//*[contains(normalize-space(.), 'Профиль')]", "Настройки должны содержать раздел профиля");
-        assertVisible("//*[contains(normalize-space(.), 'Безопасность и вход в аккаунт')]",
-                "Настройки должны содержать раздел безопасности");
-        assertVisible("//button[contains(normalize-space(.), 'Сохранить') or contains(normalize-space(.), 'Изменить')]"
-                        + " | //input | //textarea",
-                "Настройки должны содержать элементы редактирования профиля");
+        accountPage().openSettings().shouldShowSettings();
     }
 
     @Test
@@ -41,11 +28,7 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        openPath("/user/776671/friends");
-
-        assertVisible("//*[normalize-space(.)='Друзья']", "Должна открыться страница друзей");
-        assertVisible("//*[contains(normalize-space(.), 'Пусто') or contains(normalize-space(.), 'Vaneshik')]",
-                "Страница друзей должна показать список или пустое состояние");
+        accountPage().openFriends().shouldShowFriends();
     }
 
     @Test
@@ -53,12 +36,7 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        openPath("/user/776671/social/posts");
-
-        assertVisible("//button[normalize-space(.)='Посты']", "Социальный раздел должен содержать вкладку постов");
-        assertVisible("//button[normalize-space(.)='Комментарии']", "Социальный раздел должен содержать вкладку комментариев");
-        assertVisible("//button[contains(normalize-space(.), 'Отслеживаемое')]",
-                "Социальный раздел должен содержать отслеживаемое");
+        accountPage().openSocialPosts().shouldShowSocialPosts();
     }
 
     @Test
@@ -66,10 +44,6 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        openPath("/user/776671/achievements");
-
-        assertVisible("//*[normalize-space(.)='Ачивки']", "Должна открыться страница достижений");
-        assertVisible("//*[contains(normalize-space(.), 'Голос сообщества') or contains(normalize-space(.), 'Покоритель страниц')]",
-                "Страница достижений должна содержать список достижений");
+        accountPage().openAchievements().shouldShowAchievements();
     }
 }

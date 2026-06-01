@@ -12,13 +12,9 @@ class AuthTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        click("//a[contains(@href, '/user/bookmarks') and contains(normalize-space(.), 'Закладки')]"
-                + " | //button[contains(normalize-space(.), 'Закладки')]");
-
-        assertVisible("//*[contains(normalize-space(.), 'Закладки')]"
-                        + " | //*[contains(normalize-space(.), 'Избранное')]"
-                        + " | //*[contains(normalize-space(.), 'Читаю')]",
-                "После авторизации должен открываться раздел закладок");
+        accountPage()
+                .openBookmarksFromHeader()
+                .shouldShowBookmarksSection();
     }
 
     @Test
@@ -27,15 +23,7 @@ class AuthTest extends BaseTest {
 
         loginWithConfiguredUser();
 
-        assertVisible("//a[contains(@href, '/user/bookmarks') and contains(normalize-space(.), 'Закладки')]",
-                "После входа должна быть доступна ссылка на закладки");
-        assertVisible("//*[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), "
-                        + xpathLiteral(configuredLogin().toLowerCase()) + ")]",
-                "После входа должен отображаться текущий пользователь");
-        assertVisible("//a[contains(@href, '/user/notifications')]"
-                        + " | //*[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), "
-                        + xpathLiteral(configuredLogin().toLowerCase()) + ")]",
-                "После входа должны быть доступны пользовательские элементы шапки");
+        accountPage().shouldShowProfileBlock(configuredLogin());
     }
 
     @Test
@@ -43,11 +31,9 @@ class AuthTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        openHomePage();
-        openPath("/manga/%3C29.04.2026%3Eeleceed_/main");
 
-        assertVisible("//button[contains(normalize-space(.), 'В закладки')]"
-                        + " | //button[contains(normalize-space(.), 'Заклад')]",
-                "На странице тайтла авторизованному пользователю должны быть доступны пользовательские действия");
+        titlePage()
+                .openEleceed()
+                .shouldShowBookmarkAction();
     }
 }

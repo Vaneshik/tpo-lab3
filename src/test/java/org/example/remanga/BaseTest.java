@@ -3,6 +3,18 @@ package org.example.remanga;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.example.remanga.pages.AccountPage;
+import org.example.remanga.pages.AccountServicesPage;
+import org.example.remanga.pages.CatalogPage;
+import org.example.remanga.pages.CommunityPage;
+import org.example.remanga.pages.ForumPage;
+import org.example.remanga.pages.ForumPostPage;
+import org.example.remanga.pages.HomePage;
+import org.example.remanga.pages.InfoPage;
+import org.example.remanga.pages.LoginPage;
+import org.example.remanga.pages.SearchPage;
+import org.example.remanga.pages.TitlePage;
+import org.example.remanga.pages.TopPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -91,13 +103,13 @@ public abstract class BaseTest {
         };
     }
 
-    protected void openHomePage() {
+    public void openHomePage() {
         driver.get(baseUrl);
         waitForPageReady();
         closePossibleOverlays();
     }
 
-    protected void openPath(String path) {
+    public void openPath(String path) {
         driver.get(baseUrl.replaceAll("/+$", "") + path);
         waitForPageReady();
         closePossibleOverlays();
@@ -111,7 +123,7 @@ public abstract class BaseTest {
         return wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
     }
 
-    protected boolean exists(String xpath) {
+    public boolean exists(String xpath) {
         try {
             return !driver.findElements(By.xpath(xpath)).isEmpty();
         } catch (StaleElementReferenceException e) {
@@ -143,7 +155,7 @@ public abstract class BaseTest {
         return wait.until(driver -> firstVisible(xpath).orElse(null));
     }
 
-    protected void click(String xpath) {
+    public void click(String xpath) {
         WebElement element = waitFirstVisible(xpath);
         scrollToCenter(element);
         wait.until(driver -> element.isDisplayed() && element.isEnabled());
@@ -161,7 +173,7 @@ public abstract class BaseTest {
         waitForPageReady();
     }
 
-    protected void type(String xpath, String text) {
+    public void type(String xpath, String text) {
         WebElement element = waitFirstVisible(xpath);
         scrollToCenter(element);
         try {
@@ -187,11 +199,11 @@ public abstract class BaseTest {
         waitForPageReady();
     }
 
-    protected void assertVisible(String xpath, String message) {
+    public void assertVisible(String xpath, String message) {
         assertTrue(waitFirstVisible(xpath).isDisplayed(), message);
     }
 
-    protected void assertAnyVisible(String xpath, String message) {
+    public void assertAnyVisible(String xpath, String message) {
         wait.until(driver -> !visibleAll(xpath).isEmpty());
         assertTrue(!visibleAll(xpath).isEmpty(), message);
     }
@@ -227,11 +239,11 @@ public abstract class BaseTest {
         return waitFirstVisible(xpath).getText().trim();
     }
 
-    protected String valueOfFirstVisible(String xpath) {
+    public String valueOfFirstVisible(String xpath) {
         return waitFirstVisible(xpath).getAttribute("value");
     }
 
-    protected String validationMessage(String xpath) {
+    public String validationMessage(String xpath) {
         WebElement element = waitFirstVisible(xpath);
         return String.valueOf(((JavascriptExecutor) driver).executeScript(
                 "return arguments[0].validationMessage || '';",
@@ -239,7 +251,7 @@ public abstract class BaseTest {
         ));
     }
 
-    protected String xpathLiteral(String text) {
+    public String xpathLiteral(String text) {
         if (!text.contains("'")) {
             return "'" + text + "'";
         }
@@ -284,12 +296,12 @@ public abstract class BaseTest {
         return System.getenv().getOrDefault(envName, "");
     }
 
-    protected void openLoginDialog() {
+    public void openLoginDialog() {
         String loginButton = "//button[normalize-space(.)='Вход/Регистрация']";
         click(loginButton);
     }
 
-    protected void fillLoginForm(String login, String password) {
+    public void fillLoginForm(String login, String password) {
         String loginInput = "//div[@role='dialog']//input[@name='fields.login.user']";
         String passwordInput = "//div[@role='dialog']//input[@name='fields.login.password']";
 
@@ -300,7 +312,7 @@ public abstract class BaseTest {
         click(submit);
     }
 
-    protected void openFirstTitleFromCurrentPage() {
+    public void openFirstTitleFromCurrentPage() {
         String titleLink = "(//a[contains(@href, '/manga/') and contains(@href, '/main') and string-length(normalize-space(.)) > 1])[1]";
         click(titleLink);
     }
@@ -342,7 +354,7 @@ public abstract class BaseTest {
         }
     }
 
-    protected boolean waitUrlContainsAny(String... fragments) {
+    public boolean waitUrlContainsAny(String... fragments) {
         try {
             return wait.until(driver -> {
                 String url = driver.getCurrentUrl();
@@ -356,5 +368,57 @@ public abstract class BaseTest {
         } catch (TimeoutException | NoSuchElementException e) {
             return false;
         }
+    }
+
+    protected HomePage homePage() {
+        return new HomePage(this);
+    }
+
+    protected LoginPage loginPage() {
+        return new LoginPage(this);
+    }
+
+    protected SearchPage searchPage() {
+        return new SearchPage(this);
+    }
+
+    protected CatalogPage catalogPage() {
+        return new CatalogPage(this);
+    }
+
+    protected TopPage topPage() {
+        return new TopPage(this);
+    }
+
+    protected TitlePage titlePage() {
+        return new TitlePage(this);
+    }
+
+    protected ForumPage forumPage() {
+        return new ForumPage(this);
+    }
+
+    protected ForumPostPage forumPostPage() {
+        return new ForumPostPage(this);
+    }
+
+    protected AccountPage accountPage() {
+        return new AccountPage(this);
+    }
+
+    protected AccountServicesPage accountServicesPage() {
+        return new AccountServicesPage(this);
+    }
+
+    protected InfoPage infoPage() {
+        return new InfoPage(this);
+    }
+
+    protected CommunityPage communityPage() {
+        return new CommunityPage(this);
+    }
+
+    public String browserTitle() {
+        return driver.getTitle();
     }
 }

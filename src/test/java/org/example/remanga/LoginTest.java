@@ -5,12 +5,11 @@ import org.junit.jupiter.api.Test;
 class LoginTest extends BaseTest {
     @Test
     void user_sees_error_for_invalid_login() {
-        openHomePage();
-        openLoginDialog();
-        fillLoginForm("wrong-user-" + System.currentTimeMillis(), "wrong-password");
+        homePage().open();
 
-        assertVisible("//*[contains(normalize-space(.), 'Произошла ошибка') "
-                        + "or contains(normalize-space(.), 'Введен неверный логин/почта или пароль')]",
-                "При неверных данных должна отображаться ошибка авторизации");
+        loginPage()
+                .openDialog()
+                .submit("wrong-user-" + System.currentTimeMillis(), "wrong-password")
+                .shouldShowInvalidCredentialsError();
     }
 }

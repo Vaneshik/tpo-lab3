@@ -22,9 +22,8 @@ class InfoPagesTest extends BaseTest {
             "/personal-data-processing, Согласие на обработку персональных данных"
     })
     void user_opens_public_information_page(String path, String expectedText) {
-        openPath(path);
-
-        assertVisible("//*[contains(normalize-space(.), " + xpathLiteral(expectedText) + ")]",
-                "Информационная страница должна содержать ожидаемый заголовок или ключевой текст");
+        infoPage()
+                .open(path)
+                .shouldContain(expectedText);
     }
 }
