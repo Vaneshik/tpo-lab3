@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram name="ReManga UseCase" id="remanga-usecase">
-    <mxGraphModel dx="2012" dy="1354" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1250" math="0" shadow="0">
+    <mxGraphModel dx="1341" dy="903" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1250" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -195,10 +195,10 @@
         <mxCell id="home_include" edge="1" parent="1" source="uc_home" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_home_feed" value="include">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="home_extend" edge="1" parent="1" source="uc_home" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_top_news" value="extend">
+        <mxCell id="home_extend" edge="1" parent="1" source="uc_top_news" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_home" value="extend">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="catalog_filter" edge="1" parent="1" source="uc_catalog" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_filters" value="extend">
+        <mxCell id="catalog_filter" edge="1" parent="1" source="uc_filters" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_catalog" value="extend">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="catalog_search" edge="1" parent="1" source="uc_filters" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_search" value="include">
@@ -210,31 +210,29 @@
         <mxCell id="title_info" edge="1" parent="1" source="uc_title" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_title_info" value="include">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="title_tabs_1" edge="1" parent="1" source="uc_title" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_chapters" value="extend">
+        <mxCell id="title_tabs_1" edge="1" parent="1" source="uc_chapters" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_title" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1092" y="200" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="title_tabs_2" edge="1" parent="1" source="uc_title" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_discussions" value="extend">
+        <mxCell id="title_tabs_2" edge="1" parent="1" source="uc_discussions" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_title" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1092" y="310" />
-              <mxPoint x="1340" y="310" />
-              <mxPoint x="1340" y="270" />
-              <mxPoint x="1588" y="270" />
+              <mxPoint x="1588" y="290" />
+              <mxPoint x="1092" y="290" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="title_tabs_3" edge="1" parent="1" source="uc_title" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_moments" value="extend">
+        <mxCell id="title_tabs_3" edge="1" parent="1" source="uc_moments" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_title" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1092" y="360" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="title_tabs_4" edge="1" parent="1" source="uc_title" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_people_voice" value="extend">
+        <mxCell id="title_tabs_4" edge="1" parent="1" source="uc_people_voice" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_title" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1092" y="380" />
@@ -242,10 +240,10 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="forum_filter" edge="1" parent="1" source="uc_forum" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_forum_filter" value="extend">
+        <mxCell id="forum_filter" edge="1" parent="1" source="uc_forum_filter" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_forum" value="extend">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="forum_search" edge="1" parent="1" source="uc_forum" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_forum_search" value="extend">
+        <mxCell id="forum_search" edge="1" parent="1" source="uc_forum_search" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_forum" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="698" y="560" />
@@ -255,10 +253,10 @@
         <mxCell id="forum_post" edge="1" parent="1" source="uc_forum" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_forum_post" value="include">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="forum_create" edge="1" parent="1" source="uc_create_post" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_forum" value="include">
+        <mxCell id="forum_create" edge="1" parent="1" source="uc_create_post" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_forum" value="extend">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="login_profile" edge="1" parent="1" source="uc_login" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_profile" value="include">
+        <mxCell id="login_profile" edge="1" parent="1" source="uc_profile" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_login" value="include">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1190" y="560" />
@@ -266,23 +264,21 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="profile_more" edge="1" parent="1" source="uc_profile" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_profile_more" value="extend">
+        <mxCell id="profile_more" edge="1" parent="1" source="uc_profile_more" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_profile" value="extend">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="profile_account_1" edge="1" parent="1" source="uc_profile" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_bookmarks" value="extend">
+        <mxCell id="profile_account_1" edge="1" parent="1" source="uc_bookmarks" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_profile" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="1445" y="640" />
-              <mxPoint x="1220" y="640" />
-              <mxPoint x="1220" y="580" />
-              <mxPoint x="1100" y="580" />
+              <mxPoint x="1140" y="600" />
+              <mxPoint x="1445" y="600" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="profile_account_2" edge="1" parent="1" source="uc_profile" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_history_requests" value="extend">
+        <mxCell id="profile_account_2" edge="1" parent="1" source="uc_history_requests" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;" target="uc_profile" value="extend">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="profile_account_3" edge="1" parent="1" source="uc_profile" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_notifications" value="extend">
+        <mxCell id="profile_account_3" edge="1" parent="1" source="uc_notifications" style="dashed=1;endArrow=open;html=1;rounded=0;strokeColor=#64748b;fontSize=11;fontColor=#475569;edgeStyle=orthogonalEdgeStyle;" target="uc_profile" value="extend">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="1445" y="700" />

@@ -17,9 +17,8 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public void shouldShowInvalidCredentialsError() {
-        shouldSee("//*[contains(normalize-space(.), 'Произошла ошибка') "
-                        + "or contains(normalize-space(.), 'Введен неверный логин/почта или пароль')]",
-                "При неверных данных должна отображаться ошибка авторизации");
+    public boolean isInvalidCredentialsErrorVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Произошла ошибка') "
+                + "or contains(normalize-space(.), 'Введен неверный логин/почта или пароль')]");
     }
 }

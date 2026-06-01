@@ -1,7 +1,6 @@
 package org.example.remanga.pages;
 
 import org.example.remanga.BaseTest;
-import org.junit.jupiter.api.Assertions;
 
 public class ForumPostPage extends BasePage {
     private static final String TOPIC_INPUT = "//input[@placeholder='Темы' and @role='combobox']";
@@ -53,30 +52,28 @@ public class ForumPostPage extends BasePage {
         return exists(TITLE_INPUT);
     }
 
-    public void shouldShowCreateForm() {
-        Assertions.assertTrue(urlContains("/forum/create"), "Форма создания поста должна открываться по корректному URL");
-        shouldSee(TOPIC_INPUT, "Форма должна содержать выбор темы");
-        shouldSee(TITLE_INPUT, "Форма должна содержать заголовок");
-        shouldSee(BODY_EDITOR, "Форма должна содержать редактор текста");
-        shouldSee(SUBMIT_BUTTON, "Форма должна содержать кнопку отправки");
+    public boolean isCreateFormVisible() {
+        return urlContains("/forum/create")
+                && isVisible(TOPIC_INPUT)
+                && isVisible(TITLE_INPUT)
+                && isVisible(BODY_EDITOR)
+                && isVisible(SUBMIT_BUTTON);
     }
 
-    public void shouldRejectLongTitle() {
-        Assertions.assertTrue(validationMessage(TITLE_INPUT).contains("65"),
-                "Поле заголовка должно ограничивать длину");
+    public String titleValidationMessage() {
+        return validationMessage(TITLE_INPUT);
     }
 
-    public void shouldHaveTitleValue(String title) {
-        Assertions.assertEquals(title, value(TITLE_INPUT), "Форма создания поста должна принимать заголовок");
+    public String titleValue() {
+        return value(TITLE_INPUT);
     }
 
-    public void shouldHaveSubmitButton() {
-        Assertions.assertTrue(exists(SUBMIT_BUTTON), "Форма должна оставлять доступной кнопку отправки");
+    public boolean submitButtonExists() {
+        return exists(SUBMIT_BUTTON);
     }
 
-    public void shouldOpenCreatedPost() {
-        Assertions.assertTrue(urlContains("/forum/"), "После создания должен открыться пост на форуме");
-        shouldSee("//*[contains(normalize-space(.), 'Автотест')] | //*[contains(normalize-space(.), 'Тестовый пост')]",
-                "Созданный пост должен отображать тестовый заголовок или содержимое");
+    public boolean isCreatedPostOpened() {
+        return urlContains("/forum/")
+                && isVisible("//*[contains(normalize-space(.), 'Автотест')] | //*[contains(normalize-space(.), 'Тестовый пост')]");
     }
 }

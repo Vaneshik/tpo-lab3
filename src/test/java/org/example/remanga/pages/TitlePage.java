@@ -1,10 +1,11 @@
 package org.example.remanga.pages;
 
 import org.example.remanga.BaseTest;
-import org.junit.jupiter.api.Assertions;
 
 public class TitlePage extends BasePage {
     static final String ELECEED_PATH = "/manga/%3C29.04.2026%3Eeleceed_/main";
+    private static final String TAB_TEMPLATE = "//button[@role='tab' and contains(normalize-space(.), '%s')]";
+    private static final String TITLE_HEADER = "//h1[normalize-space(.)='Элисед']";
 
     public TitlePage(BaseTest test) {
         super(test);
@@ -21,114 +22,100 @@ public class TitlePage extends BasePage {
     }
 
     public TitlePage openChapters() {
-        click("//button[@role='tab' and contains(normalize-space(.), 'Главы')]");
+        click(tab("Главы"));
         return this;
     }
 
     public TitlePage openDiscussions() {
-        click("//button[@role='tab' and contains(normalize-space(.), 'Обсуждения')]");
+        click(tab("Обсуждения"));
         return this;
     }
 
     public TitlePage openMoments() {
-        click("//button[@role='tab' and contains(normalize-space(.), 'Моменты')]");
+        click(tab("Моменты"));
         return this;
     }
 
     public TitlePage openCards() {
-        click("//button[@role='tab' and contains(normalize-space(.), 'Карты')]");
+        click(tab("Карты"));
         return this;
     }
 
     public TitlePage openCharacters() {
-        click("//button[@role='tab' and contains(normalize-space(.), 'Персонажи')]");
+        click(tab("Персонажи"));
         return this;
     }
 
     public TitlePage openVoiceover() {
-        click("//button[@role='tab' and contains(normalize-space(.), 'Озвучка')]");
+        click(tab("Озвучка"));
         return this;
     }
 
-    public void shouldShowTitlePage() {
-        Assertions.assertFalse(test.browserTitle().isBlank(), "У страницы тайтла должен быть заголовок браузера");
-        shouldSee("//h1[normalize-space(.)='Элисед']", "На странице тайтла должно быть название");
-        shouldSee("//a[normalize-space(.)='Читать' and contains(@href, '/manga/')]", "На странице тайтла должна быть кнопка чтения");
-        shouldSee("//button[contains(normalize-space(.), 'Главы')]", "На странице тайтла должна быть вкладка глав");
-        shouldSee("//*[contains(normalize-space(.), 'Лайков:') and contains(normalize-space(.), 'Просмотров:')]",
-                "На странице тайтла должна быть статистика");
+    public boolean isTitlePageVisible() {
+        return !test.browserTitle().isBlank()
+                && isVisible(TITLE_HEADER)
+                && isVisible("//a[normalize-space(.)='Читать' and contains(@href, '/manga/')]")
+                && isVisible("//button[contains(normalize-space(.), 'Главы')]")
+                && isVisible("//*[contains(normalize-space(.), 'Лайков:') and contains(normalize-space(.), 'Просмотров:')]");
     }
 
-    public void shouldOpenFromList() {
-        shouldSee("//h1 | //a[normalize-space(.)='Читать'] | //button[contains(normalize-space(.), 'Главы')]",
-                "Из списка должен открываться тайтл");
+    public boolean isOpenedFromList() {
+        return isVisible("//h1 | //a[normalize-space(.)='Читать'] | //button[contains(normalize-space(.), 'Главы')]");
     }
 
-    public void shouldShowBookmarkAction() {
-        shouldSee("//button[contains(normalize-space(.), 'В закладки')]"
-                        + " | //button[contains(normalize-space(.), 'Заклад')]",
-                "На странице тайтла авторизованному пользователю должны быть доступны пользовательские действия");
+    public boolean isBookmarkActionVisible() {
+        return isVisible("//button[contains(normalize-space(.), 'В закладки')]"
+                + " | //button[contains(normalize-space(.), 'Заклад')]");
     }
 
-    public void shouldShowCollections() {
-        shouldSee("//*[normalize-space(.)='Коллекции по произведению']", "На странице тайтла должен быть блок коллекций");
-        shouldSeeAny("//a[contains(@href, '/collections/') and string-length(normalize-space(.)) > 1]",
-                "В блоке коллекций должны быть ссылки на коллекции");
+    public boolean areCollectionsVisible() {
+        return isVisible("//*[normalize-space(.)='Коллекции по произведению']")
+                && isAnyVisible("//a[contains(@href, '/collections/') and string-length(normalize-space(.)) > 1]");
     }
 
-    public void shouldShowChaptersTab() {
-        Assertions.assertTrue(urlContains("/chapters"), "После клика должна открыться вкладка глав");
-        shouldSeeTitleHeader();
-        shouldSee("//input[@placeholder='Поиск']", "На вкладке глав должен быть поиск по главам");
-        shouldSeeAny("//a[contains(@href, '/manga/') and contains(normalize-space(.), 'Глава')]",
-                "На вкладке глав должны отображаться главы");
+    public boolean isChaptersTabOpen() {
+        return urlContains("/chapters")
+                && isVisible(TITLE_HEADER)
+                && isVisible("//input[@placeholder='Поиск']")
+                && isAnyVisible("//a[contains(@href, '/manga/') and contains(normalize-space(.), 'Глава')]");
     }
 
-    public void shouldShowDiscussionsTab() {
-        Assertions.assertTrue(urlContains("/posts"), "После клика должна открыться вкладка обсуждений");
-        shouldSeeTitleHeader();
-        shouldSee("//a[contains(@href, '/forum/create') and contains(normalize-space(.), 'Создать обсуждение')]"
-                        + " | //*[contains(normalize-space(.), 'Создать обсуждение')]",
-                "На вкладке обсуждений должна быть команда создания обсуждения");
-        shouldSee("//a[contains(@href, '/forum/feed') and contains(normalize-space(.), 'На форум')]"
-                        + " | //*[contains(normalize-space(.), 'На форум')]",
-                "На вкладке обсуждений должна быть ссылка на форум");
+    public boolean isDiscussionsTabOpen() {
+        return urlContains("/posts")
+                && isVisible(TITLE_HEADER)
+                && isVisible("//a[contains(@href, '/forum/create') and contains(normalize-space(.), 'Создать обсуждение')]"
+                        + " | //*[contains(normalize-space(.), 'Создать обсуждение')]")
+                && isVisible("//a[contains(@href, '/forum/feed') and contains(normalize-space(.), 'На форум')]"
+                        + " | //*[contains(normalize-space(.), 'На форум')]");
     }
 
-    public void shouldShowMomentsTab() {
-        Assertions.assertTrue(urlContains("/moments"), "После клика должна открыться вкладка моментов");
-        shouldSeeTitleHeader();
-        shouldSee("//button[@role='tab' and contains(normalize-space(.), 'Моменты')]",
-                "Вкладка моментов должна быть доступна");
-        shouldSeeAny("//*[string-length(normalize-space(.)) > 20 and not(self::script)]",
-                "На вкладке моментов должен отображаться пользовательский контент");
+    public boolean isMomentsTabOpen() {
+        return urlContains("/moments")
+                && isVisible(TITLE_HEADER)
+                && isVisible(tab("Моменты"))
+                && isAnyVisible("//*[string-length(normalize-space(.)) > 20 and not(self::script)]");
     }
 
-    public void shouldShowCardsTab() {
-        Assertions.assertTrue(urlContains("/cards"), "После клика должна открыться вкладка карт");
-        shouldSee("//*[contains(normalize-space(.), 'Прогресс коллекции карт')]",
-                "На вкладке карт должен быть прогресс коллекции");
-        shouldSee("//button[@role='tab' and contains(normalize-space(.), 'Карты')]",
-                "Вкладка карт должна быть доступна");
+    public boolean isCardsTabOpen() {
+        return urlContains("/cards")
+                && isVisible("//*[contains(normalize-space(.), 'Прогресс коллекции карт')]")
+                && isVisible(tab("Карты"));
     }
 
-    public void shouldShowCharactersTab() {
-        Assertions.assertTrue(urlContains("/characters"), "После клика должна открыться вкладка персонажей");
-        shouldSeeTitleHeader();
-        shouldSeeAny("//a[contains(@href, '/characters') or contains(normalize-space(.), 'Кайден') or contains(normalize-space(.), 'Со Джи У')]",
-                "На вкладке персонажей должны отображаться персонажи");
+    public boolean isCharactersTabOpen() {
+        return urlContains("/characters")
+                && isVisible(TITLE_HEADER)
+                && isAnyVisible("//a[contains(@href, '/characters') or contains(normalize-space(.), 'Кайден') or contains(normalize-space(.), 'Со Джи У')]");
     }
 
-    public void shouldShowVoiceoverTab() {
-        Assertions.assertTrue(urlContains("/voiceover"), "После клика должна открыться вкладка озвучки");
-        shouldSeeTitleHeader();
-        shouldSee("//button[@role='tab' and normalize-space(.)='Озвучка']",
-                "Вкладка озвучки должна быть доступна");
-        shouldSee("//*[contains(normalize-space(.), 'Оставить комментарий') or contains(normalize-space(.), 'Sygest')]",
-                "На вкладке озвучки должен быть контент озвучки или комментарии");
+    public boolean isVoiceoverTabOpen() {
+        return urlContains("/voiceover")
+                && isVisible(TITLE_HEADER)
+                && isVisible("//button[@role='tab' and normalize-space(.)='Озвучка']")
+                && isVisible("//*[contains(normalize-space(.), 'Оставить комментарий') or contains(normalize-space(.), 'Sygest')]");
     }
 
-    private void shouldSeeTitleHeader() {
-        shouldSee("//h1[normalize-space(.)='Элисед']", "Название тайтла должно оставаться видимым");
+    private static String tab(String label) {
+        return String.format(TAB_TEMPLATE, label);
     }
 }

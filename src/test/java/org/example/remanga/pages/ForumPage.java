@@ -29,28 +29,23 @@ public class ForumPage extends BasePage {
         return this;
     }
 
-    public void shouldShowForum() {
-        shouldSee("//a[contains(normalize-space(.), 'Форум') and contains(@href, '/forum/feed')]",
-                "Должен открыться форумный раздел");
-        shouldSee("//*[normalize-space(.)='Популярное за неделю'] | //button[normalize-space(.)='Новости сайта']",
-                "На форуме должны отображаться категории или популярные записи");
-        shouldShowPosts();
+    public boolean isForumVisible() {
+        return isVisible("//a[contains(normalize-space(.), 'Форум') and contains(@href, '/forum/feed')]")
+                && isVisible("//*[normalize-space(.)='Популярное за неделю'] | //button[normalize-space(.)='Новости сайта']")
+                && arePostsVisible();
     }
 
-    public void shouldShowNewsFilterAndPosts() {
-        shouldSee("//button[normalize-space(.)='Новости сайта']", "Выбранная категория должна оставаться доступной");
-        shouldShowPosts();
+    public boolean isNewsFilterAndPostsVisible() {
+        return isVisible("//button[normalize-space(.)='Новости сайта']") && arePostsVisible();
     }
 
-    public void shouldShowPosts() {
-        shouldSeeAny("//a[contains(@href, '/forum/') and string-length(normalize-space(.)) > 1]",
-                "На форуме должен быть список записей");
+    public boolean arePostsVisible() {
+        return isAnyVisible("//a[contains(@href, '/forum/') and string-length(normalize-space(.)) > 1]");
     }
 
-    public void shouldShowPostPage() {
-        shouldSee("//a[contains(@href, '/forum/feed') and contains(normalize-space(.), 'Форум')]"
-                        + " | //button[contains(normalize-space(.), 'Ответить')]"
-                        + " | //*[contains(normalize-space(.), 'Комментарии')]",
-                "Должна открыться страница записи форума");
+    public boolean isPostPageVisible() {
+        return isVisible("//a[contains(@href, '/forum/feed') and contains(normalize-space(.), 'Форум')]"
+                + " | //button[contains(normalize-space(.), 'Ответить')]"
+                + " | //*[contains(normalize-space(.), 'Комментарии')]");
     }
 }

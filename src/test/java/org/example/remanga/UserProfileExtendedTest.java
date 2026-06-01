@@ -3,6 +3,7 @@ package org.example.remanga;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("auth")
@@ -12,7 +13,8 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openNotifications().shouldShowNotifications();
+        assertTrue(accountPage().openNotifications().areNotificationsVisible(),
+                "Должен открыться раздел уведомлений с вкладками");
     }
 
     @Test
@@ -20,7 +22,8 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openSettings().shouldShowSettings();
+        assertTrue(accountPage().openSettings().areSettingsVisible(),
+                "Должны открыться настройки профиля с разделами");
     }
 
     @Test
@@ -28,7 +31,8 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openFriends().shouldShowFriends();
+        assertTrue(accountPage().openFriends().areFriendsVisible(),
+                "Должна открыться страница друзей");
     }
 
     @Test
@@ -36,7 +40,8 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openSocialPosts().shouldShowSocialPosts();
+        assertTrue(accountPage().openSocialPosts().areSocialPostsVisible(),
+                "Должен открыться социальный раздел с вкладками");
     }
 
     @Test
@@ -44,6 +49,7 @@ class UserProfileExtendedTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openAchievements().shouldShowAchievements();
+        assertTrue(accountPage().openAchievements().areAchievementsVisible(),
+                "Должна открыться страница достижений");
     }
 }

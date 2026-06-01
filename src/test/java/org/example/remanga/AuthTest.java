@@ -3,6 +3,7 @@ package org.example.remanga;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("auth")
@@ -12,9 +13,10 @@ class AuthTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage()
-                .openBookmarksFromHeader()
-                .shouldShowBookmarksSection();
+        assertTrue(accountPage()
+                        .openBookmarksFromHeader()
+                        .isBookmarksSectionVisible(),
+                "После авторизации должен открываться раздел закладок");
     }
 
     @Test
@@ -23,7 +25,8 @@ class AuthTest extends BaseTest {
 
         loginWithConfiguredUser();
 
-        accountPage().shouldShowProfileBlock(configuredLogin());
+        assertTrue(accountPage().isProfileBlockVisible(configuredLogin()),
+                "После входа должен отображаться пользовательский блок");
     }
 
     @Test
@@ -32,8 +35,9 @@ class AuthTest extends BaseTest {
 
         loginWithConfiguredUser();
 
-        titlePage()
-                .openEleceed()
-                .shouldShowBookmarkAction();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .isBookmarkActionVisible(),
+                "Авторизованному пользователю должно быть доступно действие 'В закладки'");
     }
 }

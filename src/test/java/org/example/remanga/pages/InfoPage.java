@@ -12,8 +12,7 @@ public class InfoPage extends BasePage {
         return this;
     }
 
-    public void shouldContain(String expectedText) {
-        shouldSee("//*[contains(normalize-space(.), " + test.xpathLiteral(expectedText) + ")]",
-                "Информационная страница должна содержать ожидаемый заголовок или ключевой текст");
+    public boolean contains(String expectedText) {
+        return isVisible("//*[contains(normalize-space(.), " + test.xpathLiteral(expectedText) + ")]");
     }
 }

@@ -2,28 +2,33 @@ package org.example.remanga;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class ForumFeedTest extends BaseTest {
     @Test
     void user_filters_forum_by_category() {
-        forumPage()
-                .open()
-                .filterByNews()
-                .shouldShowNewsFilterAndPosts();
+        assertTrue(forumPage()
+                        .open()
+                        .filterByNews()
+                        .isNewsFilterAndPostsVisible(),
+                "После выбора категории форум должен показывать выбранную категорию и записи");
     }
 
     @Test
     void user_searches_forum_posts() {
-        forumPage()
-                .open()
-                .search("обмен")
-                .shouldShowPosts();
+        assertTrue(forumPage()
+                        .open()
+                        .search("обмен")
+                        .arePostsVisible(),
+                "После поиска форум должен показывать список записей");
     }
 
     @Test
     void user_opens_forum_post() {
-        forumPage()
-                .open()
-                .openFirstPost()
-                .shouldShowPostPage();
+        assertTrue(forumPage()
+                        .open()
+                        .openFirstPost()
+                        .isPostPageVisible(),
+                "Должна открыться страница записи форума");
     }
 }

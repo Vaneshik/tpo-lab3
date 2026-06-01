@@ -12,14 +12,12 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    public void shouldShowMainSections() {
-        shouldSee("//a[contains(normalize-space(.), 'Каталог')]", "В навигации должна быть ссылка на каталог");
-        shouldSee("//a[contains(normalize-space(.), 'Топы') and contains(@href, '/manga/top')]", "В навигации должна быть ссылка на топы");
-        shouldSee("//a[contains(normalize-space(.), 'Форум') and contains(@href, '/forum/feed')]", "В навигации должна быть ссылка на форум");
-        shouldSee("//button[normalize-space(.)='Что ищем, семпай?']", "На главной должен быть доступен поиск");
-        shouldSee("//*[contains(normalize-space(.), 'Горячие новинки') or contains(normalize-space(.), 'Твой чит-код на ReManga')]",
-                "На главной должна быть лента тайтлов");
-        shouldSeeAny("//a[contains(@href, '/manga/') and contains(@href, '/main') and string-length(normalize-space(.)) > 1]",
-                "На главной должны быть карточки тайтлов");
+    public boolean isMainSectionsVisible() {
+        return isVisible("//a[contains(normalize-space(.), 'Каталог')]")
+                && isVisible("//a[contains(normalize-space(.), 'Топы') and contains(@href, '/manga/top')]")
+                && isVisible("//a[contains(normalize-space(.), 'Форум') and contains(@href, '/forum/feed')]")
+                && isVisible("//button[normalize-space(.)='Что ищем, семпай?']")
+                && isVisible("//*[contains(normalize-space(.), 'Горячие новинки') or contains(normalize-space(.), 'Твой чит-код на ReManga')]")
+                && isAnyVisible("//a[contains(@href, '/manga/') and contains(@href, '/main') and string-length(normalize-space(.)) > 1]");
     }
 }

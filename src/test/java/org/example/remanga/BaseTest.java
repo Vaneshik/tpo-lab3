@@ -208,6 +208,24 @@ public abstract class BaseTest {
         assertTrue(!visibleAll(xpath).isEmpty(), message);
     }
 
+    public boolean isVisible(String xpath) {
+        try {
+            WebElement element = waitFirstVisible(xpath);
+            return element != null && element.isDisplayed();
+        } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
+            return false;
+        }
+    }
+
+    public boolean isAnyVisible(String xpath) {
+        try {
+            wait.until(driver -> !visibleAll(xpath).isEmpty());
+            return !visibleAll(xpath).isEmpty();
+        } catch (TimeoutException | NoSuchElementException | StaleElementReferenceException e) {
+            return false;
+        }
+    }
+
     protected void waitForPageReady() {
         wait.until(driver -> ((JavascriptExecutor) driver)
                 .executeScript("return document.readyState").equals("complete"));

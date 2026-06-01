@@ -3,6 +3,7 @@ package org.example.remanga;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("auth")
@@ -12,7 +13,8 @@ class UserAccountTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openBookmarks().shouldShowBookmarkFilters();
+        assertTrue(accountPage().openBookmarks().areBookmarkFiltersVisible(),
+                "В закладках должны быть фильтры статуса и сортировка");
     }
 
     @Test
@@ -20,7 +22,8 @@ class UserAccountTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openHistory().shouldShowHistory();
+        assertTrue(accountPage().openHistory().isHistoryVisible(),
+                "Должна открыться история чтения с командой очистки и ссылками");
     }
 
     @Test
@@ -28,7 +31,8 @@ class UserAccountTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openRequests().shouldShowRequests();
+        assertTrue(accountPage().openRequests().areRequestsVisible(),
+                "Должна открыться страница заявок с фильтрами");
     }
 
     @Test
@@ -36,6 +40,7 @@ class UserAccountTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountPage().openPublicProfile().shouldShowPublicProfile();
+        assertTrue(accountPage().openPublicProfile().isPublicProfileVisible(),
+                "Должен открыться публичный профиль с именем, ID и вкладками");
     }
 }

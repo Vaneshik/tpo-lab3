@@ -17,11 +17,10 @@ public class TopPage extends BasePage {
         return this;
     }
 
-    public void shouldShowTops() {
-        shouldSee("//*[normalize-space(.)='Топы']", "Должен открыться раздел топов");
-        shouldSee("//a[normalize-space(.)='Новинок' and contains(@href, 'period=new')]", "В топах должен быть фильтр периода");
-        shouldSee("//a[normalize-space(.)='Месяца' and contains(@href, 'period=monthly')]", "В топах должен быть фильтр месяца");
-        shouldSeeAny("//a[contains(@href, '/manga/') and contains(@href, '/main') and string-length(normalize-space(.)) > 1]",
-                "В топах должен быть список тайтлов");
+    public boolean areTopsVisible() {
+        return isVisible("//*[normalize-space(.)='Топы']")
+                && isVisible("//a[normalize-space(.)='Новинок' and contains(@href, 'period=new')]")
+                && isVisible("//a[normalize-space(.)='Месяца' and contains(@href, 'period=monthly')]")
+                && isAnyVisible("//a[contains(@href, '/manga/') and contains(@href, '/main') and string-length(normalize-space(.)) > 1]");
     }
 }

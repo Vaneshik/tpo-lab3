@@ -58,92 +58,80 @@ public class AccountPage extends BasePage {
         return this;
     }
 
-    public void shouldShowBookmarksSection() {
-        shouldSee("//*[contains(normalize-space(.), 'Закладки')]"
-                        + " | //*[contains(normalize-space(.), 'Избранное')]"
-                        + " | //*[contains(normalize-space(.), 'Читаю')]",
-                "После авторизации должен открываться раздел закладок");
+    public boolean isBookmarksSectionVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Закладки')]"
+                + " | //*[contains(normalize-space(.), 'Избранное')]"
+                + " | //*[contains(normalize-space(.), 'Читаю')]");
     }
 
-    public void shouldShowProfileBlock(String login) {
-        shouldSee("//a[contains(@href, '/user/bookmarks') and contains(normalize-space(.), 'Закладки')]",
-                "После входа должна быть доступна ссылка на закладки");
-        shouldSee("//*[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), "
-                        + test.xpathLiteral(login.toLowerCase()) + ")]",
-                "После входа должен отображаться текущий пользователь");
-        shouldSee("//a[contains(@href, '/user/notifications')]"
+    public boolean isProfileBlockVisible(String login) {
+        String loginLower = login.toLowerCase();
+        return isVisible("//a[contains(@href, '/user/bookmarks') and contains(normalize-space(.), 'Закладки')]")
+                && isVisible("//*[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), "
+                        + test.xpathLiteral(loginLower) + ")]")
+                && isVisible("//a[contains(@href, '/user/notifications')]"
                         + " | //*[contains(translate(normalize-space(.), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), "
-                        + test.xpathLiteral(login.toLowerCase()) + ")]",
-                "После входа должны быть доступны пользовательские элементы шапки");
+                        + test.xpathLiteral(loginLower) + ")]");
     }
 
-    public void shouldShowBookmarkFilters() {
-        shouldSee("//*[normalize-space(.)='Закладки']", "Должен открыться раздел закладок");
-        shouldSee("//button[contains(normalize-space(.), 'Все')]", "В закладках должен быть фильтр всех тайтлов");
-        shouldSee("//button[contains(normalize-space(.), 'Читаю')]", "В закладках должен быть фильтр 'Читаю'");
-        shouldSee("//button[contains(normalize-space(.), 'Буду читать')]", "В закладках должен быть фильтр 'Буду читать'");
-        shouldSee("//button[contains(normalize-space(.), 'Прочитано')]", "В закладках должен быть фильтр 'Прочитано'");
-        shouldSee("//button[contains(normalize-space(.), 'По дате обновлений глав')]",
-                "В закладках должна быть сортировка");
+    public boolean areBookmarkFiltersVisible() {
+        return isVisible("//*[normalize-space(.)='Закладки']")
+                && isVisible("//button[contains(normalize-space(.), 'Все')]")
+                && isVisible("//button[contains(normalize-space(.), 'Читаю')]")
+                && isVisible("//button[contains(normalize-space(.), 'Буду читать')]")
+                && isVisible("//button[contains(normalize-space(.), 'Прочитано')]")
+                && isVisible("//button[contains(normalize-space(.), 'По дате обновлений глав')]");
     }
 
-    public void shouldShowHistory() {
-        shouldSee("//*[contains(normalize-space(.), 'История чтения')]", "Должна открыться история чтения");
-        shouldSee("//button[contains(normalize-space(.), 'Удалить всю историю')]",
-                "В истории чтения должна быть команда очистки");
-        shouldSeeAny("//a[contains(@href, '/manga/') and contains(@href, '/main')]",
-                "История чтения должна содержать ссылки на тайтлы или главы");
+    public boolean isHistoryVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'История чтения')]")
+                && isVisible("//button[contains(normalize-space(.), 'Удалить всю историю')]")
+                && isAnyVisible("//a[contains(@href, '/manga/') and contains(@href, '/main')]");
     }
 
-    public void shouldShowRequests() {
-        shouldSee("//*[normalize-space(.)='Заявки']", "Должна открыться страница заявок");
-        shouldSee("//button[contains(normalize-space(.), 'Все статусы')]", "В заявках должен быть фильтр статуса");
-        shouldSee("//button[contains(normalize-space(.), 'Все типы')]", "В заявках должен быть фильтр типа");
+    public boolean areRequestsVisible() {
+        return isVisible("//*[normalize-space(.)='Заявки']")
+                && isVisible("//button[contains(normalize-space(.), 'Все статусы')]")
+                && isVisible("//button[contains(normalize-space(.), 'Все типы')]");
     }
 
-    public void shouldShowPublicProfile() {
-        shouldSee("//*[contains(normalize-space(.), 'Vaneshik')]", "Профиль должен отображать имя пользователя");
-        shouldSee("//*[contains(normalize-space(.), 'ID: 776671')]", "Профиль должен отображать ID пользователя");
-        shouldSee("//button[normalize-space(.)='Профиль']", "В профиле должна быть вкладка профиля");
-        shouldSee("//button[normalize-space(.)='Инвентарь']", "В профиле должна быть вкладка инвентаря");
-        shouldSee("//button[normalize-space(.)='Социальное']", "В профиле должна быть вкладка социального раздела");
-        shouldSee("//*[normalize-space(.)='Бейджи'] | //*[normalize-space(.)='Ачивки']",
-                "Профиль должен содержать блоки достижений");
+    public boolean isPublicProfileVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Vaneshik')]")
+                && isVisible("//*[contains(normalize-space(.), 'ID: 776671')]")
+                && isVisible("//button[normalize-space(.)='Профиль']")
+                && isVisible("//button[normalize-space(.)='Инвентарь']")
+                && isVisible("//button[normalize-space(.)='Социальное']")
+                && isVisible("//*[normalize-space(.)='Бейджи'] | //*[normalize-space(.)='Ачивки']");
     }
 
-    public void shouldShowNotifications() {
-        shouldSee("//*[normalize-space(.)='Уведомления']", "Должен открыться раздел уведомлений");
-        shouldSee("//button[contains(normalize-space(.), 'Обновления')]", "В уведомлениях должна быть вкладка обновлений");
-        shouldSee("//button[contains(normalize-space(.), 'Социальное')]", "В уведомлениях должна быть социальная вкладка");
-        shouldSee("//button[contains(normalize-space(.), 'Важное')]", "В уведомлениях должна быть вкладка важного");
+    public boolean areNotificationsVisible() {
+        return isVisible("//*[normalize-space(.)='Уведомления']")
+                && isVisible("//button[contains(normalize-space(.), 'Обновления')]")
+                && isVisible("//button[contains(normalize-space(.), 'Социальное')]")
+                && isVisible("//button[contains(normalize-space(.), 'Важное')]");
     }
 
-    public void shouldShowSettings() {
-        shouldSee("//*[contains(normalize-space(.), 'Vaneshik')]", "Настройки должны отображать текущий профиль");
-        shouldSee("//*[contains(normalize-space(.), 'Профиль')]", "Настройки должны содержать раздел профиля");
-        shouldSee("//*[contains(normalize-space(.), 'Безопасность и вход в аккаунт')]",
-                "Настройки должны содержать раздел безопасности");
-        shouldSee("//button[contains(normalize-space(.), 'Сохранить') or contains(normalize-space(.), 'Изменить')]"
-                        + " | //input | //textarea",
-                "Настройки должны содержать элементы редактирования профиля");
+    public boolean areSettingsVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Vaneshik')]")
+                && isVisible("//*[contains(normalize-space(.), 'Профиль')]")
+                && isVisible("//*[contains(normalize-space(.), 'Безопасность и вход в аккаунт')]")
+                && isVisible("//button[contains(normalize-space(.), 'Сохранить') or contains(normalize-space(.), 'Изменить')]"
+                        + " | //input | //textarea");
     }
 
-    public void shouldShowFriends() {
-        shouldSee("//*[normalize-space(.)='Друзья']", "Должна открыться страница друзей");
-        shouldSee("//*[contains(normalize-space(.), 'Пусто') or contains(normalize-space(.), 'Vaneshik')]",
-                "Страница друзей должна показать список или пустое состояние");
+    public boolean areFriendsVisible() {
+        return isVisible("//*[normalize-space(.)='Друзья']")
+                && isVisible("//*[contains(normalize-space(.), 'Пусто') or contains(normalize-space(.), 'Vaneshik')]");
     }
 
-    public void shouldShowSocialPosts() {
-        shouldSee("//button[normalize-space(.)='Посты']", "Социальный раздел должен содержать вкладку постов");
-        shouldSee("//button[normalize-space(.)='Комментарии']", "Социальный раздел должен содержать вкладку комментариев");
-        shouldSee("//button[contains(normalize-space(.), 'Отслеживаемое')]",
-                "Социальный раздел должен содержать отслеживаемое");
+    public boolean areSocialPostsVisible() {
+        return isVisible("//button[normalize-space(.)='Посты']")
+                && isVisible("//button[normalize-space(.)='Комментарии']")
+                && isVisible("//button[contains(normalize-space(.), 'Отслеживаемое')]");
     }
 
-    public void shouldShowAchievements() {
-        shouldSee("//*[normalize-space(.)='Ачивки']", "Должна открыться страница достижений");
-        shouldSee("//*[contains(normalize-space(.), 'Голос сообщества') or contains(normalize-space(.), 'Покоритель страниц')]",
-                "Страница достижений должна содержать список достижений");
+    public boolean areAchievementsVisible() {
+        return isVisible("//*[normalize-space(.)='Ачивки']")
+                && isVisible("//*[contains(normalize-space(.), 'Голос сообщества') or contains(normalize-space(.), 'Покоритель страниц')]");
     }
 }

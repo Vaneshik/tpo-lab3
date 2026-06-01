@@ -17,18 +17,17 @@ public class CommunityPage extends BasePage {
         return this;
     }
 
-    public void shouldShowPublisher() {
-        shouldSee("//*[contains(normalize-space(.), 'Картнадзор')]", "Страница паблишера должна содержать название");
-        shouldSee("//*[contains(normalize-space(.), 'Контакты')]", "Страница паблишера должна содержать контакты");
-        shouldSee("//*[contains(normalize-space(.), 'Участники')]", "Страница паблишера должна содержать участников");
-        shouldSee("//*[contains(normalize-space(.), 'Подписчики')]", "Страница паблишера должна содержать подписчиков");
+    public boolean isPublisherVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Картнадзор')]")
+                && isVisible("//*[contains(normalize-space(.), 'Контакты')]")
+                && isVisible("//*[contains(normalize-space(.), 'Участники')]")
+                && isVisible("//*[contains(normalize-space(.), 'Подписчики')]");
     }
 
-    public void shouldShowGuild() {
-        shouldSee("//*[contains(normalize-space(.), 'НЕОфициальная РЕманга')]",
-                "Страница гильдии должна содержать название");
-        shouldSee("//*[contains(normalize-space(.), 'О гильдии')]", "Страница гильдии должна содержать описание");
-        shouldSee("//*[contains(normalize-space(.), 'Бонусы')]", "Страница гильдии должна содержать бонусы");
-        shouldSee("//*[contains(normalize-space(.), 'Состав')]", "Страница гильдии должна содержать состав");
+    public boolean isGuildVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'НЕОфициальная РЕманга')]")
+                && isVisible("//*[contains(normalize-space(.), 'О гильдии')]")
+                && isVisible("//*[contains(normalize-space(.), 'Бонусы')]")
+                && isVisible("//*[contains(normalize-space(.), 'Состав')]");
     }
 }

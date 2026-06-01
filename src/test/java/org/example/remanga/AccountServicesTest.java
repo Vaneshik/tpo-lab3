@@ -3,6 +3,7 @@ package org.example.remanga;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @Tag("auth")
@@ -12,7 +13,8 @@ class AccountServicesTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountServicesPage().openChat().shouldShowChat();
+        assertTrue(accountServicesPage().openChat().isChatVisible(),
+                "Должен открыться чат с поиском и рабочей областью");
     }
 
     @Test
@@ -20,7 +22,8 @@ class AccountServicesTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountServicesPage().openSubscription().shouldShowSubscription();
+        assertTrue(accountServicesPage().openSubscription().isSubscriptionVisible(),
+                "Должна открыться страница подписки RePremium");
     }
 
     @Test
@@ -28,7 +31,8 @@ class AccountServicesTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountServicesPage().openCustomizationShop().shouldShowCustomizationShop();
+        assertTrue(accountServicesPage().openCustomizationShop().isCustomizationShopVisible(),
+                "Должен открыться магазин кастомизации с вкладками");
     }
 
     @Test
@@ -36,7 +40,8 @@ class AccountServicesTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountServicesPage().openBilling().shouldShowBilling();
+        assertTrue(accountServicesPage().openBilling().isBillingVisible(),
+                "Должна открыться история транзакций");
     }
 
     @Test
@@ -44,7 +49,8 @@ class AccountServicesTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountServicesPage().openDungeonHunters().shouldShowDungeonHunters();
+        assertTrue(accountServicesPage().openDungeonHunters().isDungeonHuntersVisible(),
+                "Должна открыться страница ивента");
     }
 
     @Test
@@ -52,6 +58,7 @@ class AccountServicesTest extends BaseTest {
         assumeTrue(credentialsProvided(), "Для auth-тестов передайте -Dremanga.login/-Dremanga.password или REMANGA_LOGIN/REMANGA_PASSWORD");
 
         loginWithConfiguredUser();
-        accountServicesPage().openBattlepassInfo().shouldShowBattlepassInfo();
+        assertTrue(accountServicesPage().openBattlepassInfo().isBattlepassInfoVisible(),
+                "Должно открыться описание Re:Pass");
     }
 }

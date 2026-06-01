@@ -14,12 +14,12 @@ abstract class BasePage {
         return this;
     }
 
-    protected void shouldSee(String xpath, String message) {
-        test.assertVisible(xpath, message);
+    protected boolean isVisible(String xpath) {
+        return test.isVisible(xpath);
     }
 
-    protected void shouldSeeAny(String xpath, String message) {
-        test.assertAnyVisible(xpath, message);
+    protected boolean isAnyVisible(String xpath) {
+        return test.isAnyVisible(xpath);
     }
 
     protected void click(String xpath) {

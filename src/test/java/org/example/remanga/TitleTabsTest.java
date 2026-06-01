@@ -2,52 +2,60 @@ package org.example.remanga;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 class TitleTabsTest extends BaseTest {
     @Test
     void user_opens_title_chapters_tab() {
-        titlePage()
-                .openEleceed()
-                .openChapters()
-                .shouldShowChaptersTab();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .openChapters()
+                        .isChaptersTabOpen(),
+                "Должна открыться вкладка глав с поиском и списком");
     }
 
     @Test
     void user_opens_title_discussions_tab() {
-        titlePage()
-                .openEleceed()
-                .openDiscussions()
-                .shouldShowDiscussionsTab();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .openDiscussions()
+                        .isDiscussionsTabOpen(),
+                "Должна открыться вкладка обсуждений");
     }
 
     @Test
     void user_opens_title_moments_tab() {
-        titlePage()
-                .openEleceed()
-                .openMoments()
-                .shouldShowMomentsTab();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .openMoments()
+                        .isMomentsTabOpen(),
+                "Должна открыться вкладка моментов");
     }
 
     @Test
     void user_opens_title_cards_tab() {
-        titlePage()
-                .openEleceed()
-                .openCards()
-                .shouldShowCardsTab();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .openCards()
+                        .isCardsTabOpen(),
+                "Должна открыться вкладка карт");
     }
 
     @Test
     void user_opens_title_characters_tab() {
-        titlePage()
-                .openEleceed()
-                .openCharacters()
-                .shouldShowCharactersTab();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .openCharacters()
+                        .isCharactersTabOpen(),
+                "Должна открыться вкладка персонажей");
     }
 
     @Test
     void user_opens_title_voiceover_tab() {
-        titlePage()
-                .openEleceed()
-                .openVoiceover()
-                .shouldShowVoiceoverTab();
+        assertTrue(titlePage()
+                        .openEleceed()
+                        .openVoiceover()
+                        .isVoiceoverTabOpen(),
+                "Должна открыться вкладка озвучки");
     }
 }

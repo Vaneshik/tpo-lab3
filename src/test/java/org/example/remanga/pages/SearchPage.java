@@ -1,7 +1,6 @@
 package org.example.remanga.pages;
 
 import org.example.remanga.BaseTest;
-import org.junit.jupiter.api.Assertions;
 
 public class SearchPage extends BasePage {
     private static final String SEARCH_BUTTON = "//button[normalize-space(.)='Что ищем, семпай?']";
@@ -21,7 +20,7 @@ public class SearchPage extends BasePage {
         return this;
     }
 
-    public void shouldContainQuery(String query) {
-        Assertions.assertEquals(query, value(SEARCH_INPUT), "Поисковое поле должно принимать запрос");
+    public String currentQuery() {
+        return value(SEARCH_INPUT);
     }
 }

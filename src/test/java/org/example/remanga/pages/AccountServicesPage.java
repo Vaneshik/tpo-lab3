@@ -37,45 +37,40 @@ public class AccountServicesPage extends BasePage {
         return this;
     }
 
-    public void shouldShowChat() {
-        shouldSee("//*[contains(normalize-space(.), 'Чаты')]", "Должен открыться раздел чатов");
-        shouldSee("//input[@placeholder='Поиск']", "В чате должен быть поиск");
-        shouldSee("//*[contains(normalize-space(.), 'Бета-версия чата') or contains(normalize-space(.), 'Выберите чат')]",
-                "Чат должен показывать рабочую область или бета-уведомление");
+    public boolean isChatVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Чаты')]")
+                && isVisible("//input[@placeholder='Поиск']")
+                && isVisible("//*[contains(normalize-space(.), 'Бета-версия чата') or contains(normalize-space(.), 'Выберите чат')]");
     }
 
-    public void shouldShowSubscription() {
-        shouldSee("//*[contains(normalize-space(.), 'RePremium')]", "Страница подписки должна показывать RePremium");
-        shouldSee("//button[contains(normalize-space(.), 'Попробовать') or contains(normalize-space(.), 'Подписка')]",
-                "Страница подписки должна содержать действие подключения");
+    public boolean isSubscriptionVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'RePremium')]")
+                && isVisible("//button[contains(normalize-space(.), 'Попробовать') or contains(normalize-space(.), 'Подписка')]");
     }
 
-    public void shouldShowCustomizationShop() {
-        shouldSee("//*[normalize-space(.)='Магазин']", "Должен открыться магазин кастомизации");
-        shouldSee("//button[normalize-space(.)='Аватарки']", "В магазине должна быть вкладка аватарок");
-        shouldSee("//button[normalize-space(.)='Рамки']", "В магазине должна быть вкладка рамок");
-        shouldSee("//button[normalize-space(.)='Обои']", "В магазине должна быть вкладка обоев");
+    public boolean isCustomizationShopVisible() {
+        return isVisible("//*[normalize-space(.)='Магазин']")
+                && isVisible("//button[normalize-space(.)='Аватарки']")
+                && isVisible("//button[normalize-space(.)='Рамки']")
+                && isVisible("//button[normalize-space(.)='Обои']");
     }
 
-    public void shouldShowBilling() {
-        shouldSee("//*[contains(normalize-space(.), 'История транзакций')]",
-                "Должна открыться история транзакций");
-        shouldSee("//button[normalize-space(.)='Молнии']", "В биллинге должна быть вкладка молний");
-        shouldSee("//button[normalize-space(.)='Монеты']", "В биллинге должна быть вкладка монет");
-        shouldSee("//button[normalize-space(.)='Тикеты']", "В биллинге должна быть вкладка тикетов");
+    public boolean isBillingVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'История транзакций')]")
+                && isVisible("//button[normalize-space(.)='Молнии']")
+                && isVisible("//button[normalize-space(.)='Монеты']")
+                && isVisible("//button[normalize-space(.)='Тикеты']");
     }
 
-    public void shouldShowDungeonHunters() {
-        shouldSee("//*[contains(normalize-space(.), 'ОХОТНИКИ')]", "Должна открыться страница ивента");
-        shouldSee("//button[contains(normalize-space(.), 'Принять вызов')]", "Ивент должен содержать действие принятия");
-        shouldSee("//button[contains(normalize-space(.), 'Отказаться')]", "Ивент должен содержать действие отказа");
+    public boolean isDungeonHuntersVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'ОХОТНИКИ')]")
+                && isVisible("//button[contains(normalize-space(.), 'Принять вызов')]")
+                && isVisible("//button[contains(normalize-space(.), 'Отказаться')]");
     }
 
-    public void shouldShowBattlepassInfo() {
-        shouldSee("//*[contains(normalize-space(.), 'Re:Pass') or contains(normalize-space(.), 'Pass')]",
-                "Должно открыться описание Re:Pass");
-        shouldSee("//button[contains(normalize-space(.), 'Вступить') or contains(normalize-space(.), 'Получить') or contains(normalize-space(.), 'Открыть')]"
-                        + " | //a[contains(@href, '/user/battlepass')]",
-                "Re:Pass должен содержать действие или навигацию battlepass");
+    public boolean isBattlepassInfoVisible() {
+        return isVisible("//*[contains(normalize-space(.), 'Re:Pass') or contains(normalize-space(.), 'Pass')]")
+                && isVisible("//button[contains(normalize-space(.), 'Вступить') or contains(normalize-space(.), 'Получить') or contains(normalize-space(.), 'Открыть')]"
+                        + " | //a[contains(@href, '/user/battlepass')]");
     }
 }

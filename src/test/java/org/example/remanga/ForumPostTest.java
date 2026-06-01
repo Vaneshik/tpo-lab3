@@ -4,6 +4,7 @@ import org.example.remanga.pages.ForumPostPage;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -17,7 +18,8 @@ class ForumPostTest extends BaseTest {
         ForumPostPage page = forumPostPage().openCreateForm();
         assumeTrue(page.formOpened(), "Форма создания поста недоступна для текущего аккаунта или состояния сайта");
 
-        page.shouldShowCreateForm();
+        assertTrue(page.isCreateFormVisible(),
+                "Форма создания поста должна содержать тему, заголовок, тело и кнопку отправки");
     }
 
     @Test
@@ -31,8 +33,8 @@ class ForumPostTest extends BaseTest {
         String longTitle = "Selenium title longer than sixty five characters for ReManga validation check";
         page.typeTitle(longTitle).typeBody("validation body");
 
-        page.shouldHaveTitleValue(longTitle);
-        page.shouldHaveSubmitButton();
+        assertEquals(longTitle, page.titleValue(), "Форма создания поста должна принимать заголовок");
+        assertTrue(page.submitButtonExists(), "Форма должна оставлять доступной кнопку отправки");
     }
 
     @Test
@@ -48,8 +50,8 @@ class ForumPostTest extends BaseTest {
         assumeTrue(page.formOpened(), "Форма создания поста недоступна для текущего аккаунта или состояния сайта");
 
         page.selectTopic("Бунт").typeTitle(title).typeBody(body);
-        page.shouldHaveTitleValue(title);
-        page.shouldHaveSubmitButton();
+        assertEquals(title, page.titleValue(), "Форма создания поста должна принимать заголовок");
+        assertTrue(page.submitButtonExists(), "Форма должна оставлять доступной кнопку отправки");
     }
 
     @Test
