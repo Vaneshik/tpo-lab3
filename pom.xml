@@ -15,6 +15,8 @@
         <junit.version>5.11.4</junit.version>
         <selenium.version>4.27.0</selenium.version>
         <webdrivermanager.version>5.9.2</webdrivermanager.version>
+        <junit.parallel.enabled>false</junit.parallel.enabled>
+        <junit.parallelism>1</junit.parallelism>
     </properties>
 
     <dependencies>
@@ -49,8 +51,32 @@
                     <systemPropertyVariables>
                         <file.encoding>UTF-8</file.encoding>
                     </systemPropertyVariables>
+                    <properties>
+                        <configurationParameters>
+                            junit.jupiter.execution.parallel.enabled=${junit.parallel.enabled}
+                            junit.jupiter.execution.parallel.mode.default=concurrent
+                            junit.jupiter.execution.parallel.mode.classes.default=concurrent
+                            junit.jupiter.execution.parallel.config.strategy=fixed
+                            junit.jupiter.execution.parallel.config.fixed.parallelism=${junit.parallelism}
+                        </configurationParameters>
+                    </properties>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>browser-instances</id>
+            <activation>
+                <property>
+                    <name>browser.instances</name>
+                </property>
+            </activation>
+            <properties>
+                <junit.parallel.enabled>true</junit.parallel.enabled>
+                <junit.parallelism>${browser.instances}</junit.parallelism>
+            </properties>
+        </profile>
+    </profiles>
 </project>
